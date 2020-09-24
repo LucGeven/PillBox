@@ -1,4 +1,4 @@
-package io.geven.pillbox.ui.dashboard;
+package io.geven.pillbox.ui.pillbox;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,17 +13,17 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import io.geven.pillbox.R;
 
-public class DashboardFragment extends Fragment {
+public class PillboxFragment extends Fragment {
 
-    private DashboardViewModel dashboardViewModel;
+    private PillboxViewModel pillboxViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                ViewModelProviders.of(this).get(DashboardViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        pillboxViewModel =
+                ViewModelProviders.of(this).get(PillboxViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_pillbox, container, false);
         final TextView textView = root.findViewById(R.id.text_dashboard);
-        dashboardViewModel.getText().observe(this, new Observer<String>() {
+        pillboxViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
