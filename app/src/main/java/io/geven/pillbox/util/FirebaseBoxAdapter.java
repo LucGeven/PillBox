@@ -16,13 +16,17 @@ public class FirebaseBoxAdapter extends FirebaseAdapter {
         super();
     }
 
-    public boolean setBoxID(final String id) {
+    public void setBoxID(final String id) {
         FirebaseDatabase.getInstance().getReference().child("boxes").orderByChild("id").equalTo(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     // id exist
                     Globals.getInstance().setBoxID(id);
+                    notifyObservers(FirebaseBoxAdapter.this, true);
+
+                } else {
+                    notifyObservers(FirebaseBoxAdapter.this, false);
                 }
             }
 
@@ -31,12 +35,6 @@ public class FirebaseBoxAdapter extends FirebaseAdapter {
 
             }
         });
-
-        if (Globals.getInstance().getBoxID() != "") {
-            return true;
-        } else {
-            return false;
-        }
     }
 
 }

@@ -26,6 +26,8 @@ public class ConnectActivity extends AppCompatActivity implements FirebaseObserv
     private EditText eBoxID;
     private SharedPreferences sharedPref;
 
+    private String id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,12 +44,8 @@ public class ConnectActivity extends AppCompatActivity implements FirebaseObserv
         bConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (boxAdapter.setBoxID(eBoxID.getText().toString())) {
-                    startActivity(new Intent(ConnectActivity.this, MainActivity.class));
-                } else {
-                    Snackbar.make(v, "ID cannot be found", Snackbar.LENGTH_SHORT).show();
-                }
+                id = eBoxID.getText().toString();
+                boxAdapter.setBoxID(id);
 
             }
         });
@@ -60,16 +58,24 @@ public class ConnectActivity extends AppCompatActivity implements FirebaseObserv
 
         String id = sharedPref.getString("box_id", ""); // default value is when box_id is empty
 
-        if (boxAdapter.setBoxID(id)) {
-            startActivity(new Intent(ConnectActivity.this, MainActivity.class));
+        if (id != "") {
+            boxAdapter.setBoxID(id);
         }
-
-
 
     }
 
     @Override
     public void firebaseUpdate(FirebaseAdapter adapter, Object arg) {
+        if (!(adapter instanceof FirebaseBoxAdapter)) {
+            return;
+        }
+
+        if ((Boolean) arg) {
+            sharedPref.edit().putString("box_id", ((Globals) getApplication()).getInstance().getBoxID()).apply();
+            startActivity(new Intent(ConnectActivity.this, MainActivity.class));
+        } else {
+            Snackbar.make(getWindow().getDecorView().getRootView(), "ID cannot be found", Snackbar.LENGTH_SHORT).show();
+        }
 
     }
 }
