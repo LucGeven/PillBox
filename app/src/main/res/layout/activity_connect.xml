@@ -7,7 +7,7 @@
     tools:context=".ConnectActivity">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editText_box_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="99dp"
@@ -30,7 +30,7 @@
         android:layout_marginTop="141dp"
         android:layout_marginEnd="107dp"
         android:layout_marginBottom="26dp"
-        app:layout_constraintBottom_toTopOf="@+id/editText"
+        app:layout_constraintBottom_toTopOf="@+id/editText_box_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
