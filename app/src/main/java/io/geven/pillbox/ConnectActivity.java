@@ -8,21 +8,20 @@ import io.geven.pillbox.util.Globals;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Debug;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.SeekBar;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 public class ConnectActivity extends AppCompatActivity implements FirebaseObserver {
 
     private FirebaseBoxAdapter boxAdapter;
 
-    private Button bConnect;
+    private FloatingActionButton bConnect;
     private EditText eBoxID;
     private SharedPreferences sharedPref;
 
@@ -31,24 +30,14 @@ public class ConnectActivity extends AppCompatActivity implements FirebaseObserv
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_connect);
 
+        // initialize a firebase box adapter
+        // it will notify this activity if the given box id is correct
         boxAdapter = new FirebaseBoxAdapter();
         boxAdapter.attachObserver(this);
 
+        // get the shared preferences
         sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
-
-        eBoxID = (EditText) findViewById(R.id.editText_box_id);
-
-        bConnect = (Button) findViewById(R.id.button_connect);
-        bConnect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                id = eBoxID.getText().toString();
-                boxAdapter.setBoxID(id);
-
-            }
-        });
 
     }
 
@@ -56,7 +45,8 @@ public class ConnectActivity extends AppCompatActivity implements FirebaseObserv
     protected void onStart() {
         super.onStart();
 
-        String id = sharedPref.getString("box_id", ""); // default value is when box_id is empty
+        // check if the stored id is still correct
+        String id = sharedPref.getString("box_id", ""); // default value will be used if box_id is empty
 
         if (id != "") {
             boxAdapter.setBoxID(id);
@@ -70,11 +60,32 @@ public class ConnectActivity extends AppCompatActivity implements FirebaseObserv
             return;
         }
 
+        // if box id is correct
         if ((Boolean) arg) {
+            // store the given id, so that next time you don't have to enter the id again
             sharedPref.edit().putString("box_id", ((Globals) getApplication()).getInstance().getBoxID()).apply();
+            // go to the main activity
             startActivity(new Intent(ConnectActivity.this, MainActivity.class));
         } else {
-            Snackbar.make(getWindow().getDecorView().getRootView(), "ID cannot be found", Snackbar.LENGTH_SHORT).show();
+            // no correct is is found, hence show the connect activity
+            setContentView(R.layout.activity_connect);
+
+            eBoxID = (EditText) findViewById(R.id.editText_box_id);
+
+            bConnect = (FloatingActionButton) findViewById(R.id.button_connect);
+            bConnect.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    id = eBoxID.getText().toString();
+                    boxAdapter.setBoxID(id);
+
+                }
+            });
+            // show a snackbar to notify the user that the id cannot be found
+            Snackbar snackbar = Snackbar.make(getWindow().getDecorView().getRootView(), "ID cannot be found", Snackbar.LENGTH_SHORT);
+            snackbar.getView().setBackgroundColor(Color.parseColor("#D81B60"));
+            snackbar.setTextColor(Color.BLACK);
+            snackbar.show();
         }
 
     }
