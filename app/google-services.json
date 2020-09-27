@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "117245984007",
+    "firebase_url": "https://engineering-design-58c77.firebaseio.com",
+    "project_id": "engineering-design-58c77",
+    "storage_bucket": "engineering-design-58c77.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:117245984007:android:847f8edcdbf8988067d9a2",
+        "android_client_info": {
+          "package_name": "io.geven.pillbox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "117245984007-79up3ju2jb7j4msq1osk69pnbe37jjjf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_DyNv-NoU00j3lMkafsBCOmsvR_ejFro"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "117245984007-79up3ju2jb7j4msq1osk69pnbe37jjjf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
