@@ -26,6 +26,7 @@ public class ConnectActivity extends AppCompatActivity implements FirebaseObserv
     private SharedPreferences sharedPref;
 
     private String id;
+    private String prefID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +47,10 @@ public class ConnectActivity extends AppCompatActivity implements FirebaseObserv
         super.onStart();
 
         // check if the stored id is still correct
-        String id = sharedPref.getString("box_id", ""); // default value will be used if box_id is empty
+        prefID = sharedPref.getString("box_id", ""); // default value will be used if box_id is empty
 
-        if (id != "") {
-            boxAdapter.setBoxID(id);
+        if (!prefID.equals("")) {
+            boxAdapter.setBoxID(prefID);
         }
 
     }
@@ -81,11 +82,18 @@ public class ConnectActivity extends AppCompatActivity implements FirebaseObserv
 
                 }
             });
-            // show a snackbar to notify the user that the id cannot be found
-            Snackbar snackbar = Snackbar.make(getWindow().getDecorView().getRootView(), "ID cannot be found", Snackbar.LENGTH_SHORT);
-            snackbar.getView().setBackgroundColor(Color.parseColor("#D81B60"));
-            snackbar.setTextColor(Color.BLACK);
-            snackbar.show();
+            if (!prefID.equals("")) {
+                // if you start the app, but your saved id is not correct, then delete that saved id
+                // also the snackbar won't appear
+                prefID = "";
+                sharedPref.edit().putString("", ((Globals) getApplication()).getInstance().getBoxID()).apply();
+            } else {
+                // show a snackbar to notify the user that the id cannot be found
+                Snackbar snackbar = Snackbar.make(getWindow().getDecorView().getRootView(), "ID cannot be found", Snackbar.LENGTH_SHORT);
+                snackbar.getView().setBackgroundColor(Color.parseColor("#D81B60"));
+                snackbar.setTextColor(Color.BLACK);
+                snackbar.show();
+            }
         }
 
     }
