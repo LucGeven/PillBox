@@ -67,7 +67,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_box_id"
         app:fabSize="normal"
-        app:srcCompat="@drawable/ic_sync"
+        app:srcCompat="@drawable/ic_forward"
         />
 
 

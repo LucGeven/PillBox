@@ -7,5 +7,9 @@
         <item>@font/bowlby_one_sc</item>
         <item>@font/holtwood_one_sc</item>
         <item>@font/roboto_bold</item>
+        <item>@font/work_sans</item>
+        <item>@font/work_sans_black</item>
+        <item>@font/work_sans_extrabold</item>
+        <item>@font/work_sans_thin</item>
     </array>
 </resources>
