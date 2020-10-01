@@ -31,10 +31,12 @@
         app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:layout_editor_absoluteX="0dp">
 
+
+        <!--
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_margin="16dp"
@@ -46,7 +48,7 @@
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_margin="16dp"
@@ -58,7 +60,7 @@
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_margin="16dp"
@@ -71,12 +73,12 @@
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_margin="16dp"
             android:backgroundTint="@color/colorAccent"
-            android:text="Vitamin D3"
+            android:text="oxyadfadsfnad"
             android:textAlignment="center"
             android:theme="@style/Theme.MaterialComponents.NoActionBar"
             app:icon="@drawable/ic_pill" />
@@ -84,7 +86,7 @@
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_margin="16dp"
@@ -93,7 +95,7 @@
             android:textAlignment="center"
             android:theme="@style/Theme.MaterialComponents.NoActionBar"
             app:icon="@drawable/ic_pill" />
-
+            -->
 
         >
     </GridLayout>

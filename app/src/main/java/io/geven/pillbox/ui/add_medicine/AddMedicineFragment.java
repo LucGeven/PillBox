@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,19 +16,28 @@ import androidx.fragment.app.Fragment;
 import io.geven.pillbox.R;
 import io.geven.pillbox.ui.pillbox.PillboxFragment;
 import io.geven.pillbox.ui.pillbox.PillboxViewModel;
+import io.geven.pillbox.util.FirebaseItem;
 
+import android.os.Debug;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.GridLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 public class AddMedicineFragment extends Fragment {
@@ -37,6 +47,10 @@ public class AddMedicineFragment extends Fragment {
     private EditText eDefineDate;
     private EditText eDefineTime;
     private final Calendar calendar = Calendar.getInstance();
+
+    private GridLayout gridLayout;
+
+    private HashMap<String, String> selectedMedicines;
 
     public static AddMedicineFragment newInstance() {
         return new AddMedicineFragment();
@@ -100,6 +114,66 @@ public class AddMedicineFragment extends Fragment {
             }
         });
 
+        selectedMedicines = new HashMap<>();
+
+        gridLayout = (GridLayout) root.findViewById(R.id.medicines_list);
+
+        addMedicineViewModel.getmMedicines().observe(this, new Observer<LinkedList<FirebaseItem<String>>>() {
+            @Override
+            public void onChanged(LinkedList<FirebaseItem<String>> medicines) {
+
+                // delete all current views
+                gridLayout.removeAllViews();
+
+                for (final FirebaseItem<String> medicine : medicines) {
+                    // create view from layout
+                    View medicineItem = LayoutInflater.from(getContext()).inflate(R.layout.medicine_item, gridLayout, false);
+                    final ExtendedFloatingActionButton eFAB = (ExtendedFloatingActionButton) medicineItem.findViewById(R.id.fab_medicine_item);
+                    eFAB.setText(medicine.item);
+
+                    eFAB.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (selectedMedicines.containsKey(medicine.getId())) {
+                                // deselect button
+                                eFAB.setBackgroundColor(Color.GRAY);
+                                selectedMedicines.remove(medicine.getId());
+                            } else {
+                                // select button
+                                eFAB.setBackgroundColor(Color.parseColor("#D81B60"));
+                                selectedMedicines.put(medicine.getId(), medicine.item);
+                            }
+                        }
+                    });
+
+                    gridLayout.addView(medicineItem);
+                }
+
+                // add other button
+                // create view from layout
+                View otherItem = LayoutInflater.from(getContext()).inflate(R.layout.medicine_item, gridLayout, false);
+                final ExtendedFloatingActionButton eFAB = (ExtendedFloatingActionButton) otherItem.findViewById(R.id.fab_medicine_item);
+                eFAB.setText("Other");
+
+                eFAB.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (selectedMedicines.containsKey("Other")) {
+                            // deselect button
+                            eFAB.setBackgroundColor(Color.GRAY);
+                            selectedMedicines.remove("Other");
+                        } else {
+                            // select button
+                            eFAB.setBackgroundColor(Color.parseColor("#D81B60"));
+                            selectedMedicines.put("Other", "Other");
+                        }
+                    }
+                });
+
+                gridLayout.addView(otherItem);
+
+            }
+        });
 
 
 

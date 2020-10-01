@@ -1,7 +1,33 @@
 {
   "boxes": {
     "abc123": {
-      "test": "test"
+      "id": "abc123",
+      "medicines": {
+        "0": "Vitamin B",
+        "1": "Vitamin A",
+        "2": "Other"
+      },
+      "compartments": {
+        "0": {
+          "state": "empty"
+        },
+        "1": {
+          "state": "filled",
+          "date": "27/03/2020 13:59:58",
+          "medicines": {
+            "0": "Vitamin B"
+          }
+        }
+      },
+      "history": {
+        "0": {
+          "date": "27/03/2020 13:59:58",
+          "time_taken": "27/03/2020 14:00:58",
+          "medicines": {
+            "0": "Vitamin B"
+          }
+        }
+      }
     }
   }
 }

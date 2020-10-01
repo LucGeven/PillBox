@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -18,7 +17,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import io.geven.pillbox.R;
 import io.geven.pillbox.ui.add_medicine.AddMedicineFragment;
-import io.geven.pillbox.ui.home.HomeFragment;
 
 public class PillboxFragment extends Fragment {
 
