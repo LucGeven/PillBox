@@ -65,6 +65,10 @@ public class ConnectActivity extends AppCompatActivity implements FirebaseObserv
         if ((Boolean) arg) {
             // store the given id, so that next time you don't have to enter the id again
             sharedPref.edit().putString("box_id", ((Globals) getApplication()).getInstance().getBoxID()).apply();
+
+            // detach observer, because this observer is not necessary anymore
+            boxAdapter.detachObserver(this);
+
             // go to the main activity
             startActivity(new Intent(ConnectActivity.this, MainActivity.class));
         } else {

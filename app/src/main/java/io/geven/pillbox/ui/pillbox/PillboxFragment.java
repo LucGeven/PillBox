@@ -6,12 +6,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import io.geven.pillbox.R;
+import io.geven.pillbox.ui.add_medicine.AddMedicineFragment;
 
 public class PillboxFragment extends Fragment {
 
@@ -29,6 +34,20 @@ public class PillboxFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
+        final FloatingActionButton fab = root.findViewById(R.id.fab_add_medicine);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // if you click on the floating action button, then show the fragment add medicine
+                Fragment fragment = new AddMedicineFragment();
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.nav_host_fragment, fragment);
+                transaction.commit();
+            }
+        });
+
         return root;
     }
 }
