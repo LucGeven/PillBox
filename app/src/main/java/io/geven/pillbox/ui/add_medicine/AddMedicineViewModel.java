@@ -1,14 +1,12 @@
 package io.geven.pillbox.ui.add_medicine;
 
-import android.util.Log;
-
 import java.util.LinkedList;
 import java.util.List;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import io.geven.pillbox.util.FirebaseAdapter;
+import io.geven.pillbox.util.FirebaseCompartmentsAdapter;
 import io.geven.pillbox.util.FirebaseItem;
 import io.geven.pillbox.util.FirebaseMedicinesAdapter;
 import io.geven.pillbox.util.FirebaseObserver;
@@ -18,7 +16,8 @@ public class AddMedicineViewModel extends ViewModel implements FirebaseObserver 
 
     private MutableLiveData<LinkedList<FirebaseItem<String>>> mMedicines;
 
-    FirebaseAdapter firebaseMedicinesAdapter;
+    FirebaseMedicinesAdapter firebaseMedicinesAdapter;
+    FirebaseCompartmentsAdapter firebaseCompartmentsAdapter;
 
     public AddMedicineViewModel() {
 
@@ -26,6 +25,9 @@ public class AddMedicineViewModel extends ViewModel implements FirebaseObserver 
 
         firebaseMedicinesAdapter = new FirebaseMedicinesAdapter();
         firebaseMedicinesAdapter.attachObserver(this);
+
+        firebaseCompartmentsAdapter = new FirebaseCompartmentsAdapter();
+        firebaseCompartmentsAdapter.attachObserver(this);
     }
 
     @Override
@@ -39,4 +41,11 @@ public class AddMedicineViewModel extends ViewModel implements FirebaseObserver 
     public MutableLiveData<LinkedList<FirebaseItem<String>>> getmMedicines() {
         return mMedicines;
     }
+
+    public String addMedicines(String date, List<String> medicines) {
+        return firebaseCompartmentsAdapter.addMedicines(date, medicines);
+    }
+
+
+
 }

@@ -33,7 +33,7 @@ public class FirebaseMedicinesAdapter extends FirebaseAdapter {
         medicinesReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // data will not be overwritten, therefore we need to clean the chores list
+                // data will not be overwritten, therefore we need to clean the medicines list
                 medicines.clear();
 
                 // for each medicine that exists in the medicines list

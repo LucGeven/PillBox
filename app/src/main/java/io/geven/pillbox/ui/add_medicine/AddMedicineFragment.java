@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import io.geven.pillbox.R;
+import io.geven.pillbox.ui.compartment_connection.CompartmentConnectionFragment;
 import io.geven.pillbox.ui.pillbox.PillboxFragment;
 import io.geven.pillbox.ui.pillbox.PillboxViewModel;
 import io.geven.pillbox.util.FirebaseItem;
@@ -32,8 +33,10 @@ import android.widget.TimePicker;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -66,7 +69,7 @@ public class AddMedicineFragment extends Fragment {
 
 
         FloatingActionButton fabRemove = root.findViewById(R.id.fab_delete_medicine);
-        FloatingActionButton fabSave = root.findViewById(R.id.fab_add_medicine);
+        FloatingActionButton fabSave = root.findViewById(R.id.fab_push_medicine);
         fabRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +83,58 @@ public class AddMedicineFragment extends Fragment {
 
         eDefineDate = (EditText) root.findViewById(R.id.editText_define_date);
         eDefineTime = (EditText) root.findViewById(R.id.editText_define_time);
+
+        fabSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // first check if some medicine is selected, and if not then show a snackbar
+                if (!(selectedMedicines.size() > 0)) {
+                    Snackbar snackbar = Snackbar.make(getView().getRootView(), "No medicines are selected", Snackbar.LENGTH_SHORT);
+                    snackbar.getView().setBackgroundColor(Color.parseColor("#D81B60"));
+                    snackbar.setTextColor(Color.BLACK);
+                    snackbar.show();
+                }
+
+                // check if a date is filled in, and if not then show a snackbar
+                else if (!(eDefineDate.getText().toString().length() > 0)) {
+                    Snackbar snackbar = Snackbar.make(getView().getRootView(), "No date is defined", Snackbar.LENGTH_SHORT);
+                    snackbar.getView().setBackgroundColor(Color.parseColor("#D81B60"));
+                    snackbar.setTextColor(Color.BLACK);
+                    snackbar.show();
+                }
+
+                // check if a time is filled in, and if not then show a snackbar
+                else if (!(eDefineTime.getText().toString().length() > 0)) {
+                    Snackbar snackbar = Snackbar.make(getView().getRootView(), "No time is defined", Snackbar.LENGTH_SHORT);
+                    snackbar.getView().setBackgroundColor(Color.parseColor("#D81B60"));
+                    snackbar.setTextColor(Color.BLACK);
+                    snackbar.show();
+                } else {
+                    // everything is filled in
+                    String d = eDefineDate.getText().toString() + " " + eDefineTime.getText().toString();
+
+                    // get compartment key, null if no compartment is available
+                    String cKey = addMedicineViewModel.addMedicines(d, new ArrayList<String>(selectedMedicines.values()));
+                    if (cKey == null) {
+                        // no compartment is available
+                        Snackbar snackbar = Snackbar.make(getView().getRootView(), "No compartment is available", Snackbar.LENGTH_SHORT);
+                        snackbar.getView().setBackgroundColor(Color.parseColor("#D81B60"));
+                        snackbar.setTextColor(Color.BLACK);
+                        snackbar.show();
+                    } else {
+                        Fragment fragment = new CompartmentConnectionFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("compartment_key", cKey);
+                        fragment.setArguments(bundle);
+                        FragmentManager fm = getFragmentManager();
+                        FragmentTransaction transaction = fm.beginTransaction();
+                        transaction.replace(R.id.nav_host_fragment, fragment);
+                        transaction.commit();
+
+                    }
+                }
+            }
+        });
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
