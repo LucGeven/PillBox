@@ -49,6 +49,8 @@ public class FirebaseCompartmentsAdapter extends FirebaseAdapter {
                     compartments.put(compartment.getKey(), c);
                 }
 
+                notifyObservers(FirebaseCompartmentsAdapter.this, compartments);
+
             }
 
             @Override

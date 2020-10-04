@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:id="@+id/fab_medicine_item"
         android:backgroundTint="#888888"
-        android:text=""
+        android:text="Vitamin B"
         android:theme="@style/Theme.MaterialComponents.NoActionBar"
         app:icon="@drawable/ic_pill" />
 

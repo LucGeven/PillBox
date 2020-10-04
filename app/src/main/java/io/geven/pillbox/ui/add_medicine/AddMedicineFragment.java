@@ -236,13 +236,13 @@ public class AddMedicineFragment extends Fragment {
     }
 
     private void updateDateLabel() {
-        String format = "dd/MM/yyyy";
+        String format = "dd/MM/yyyy ";
         SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.getDefault());
         eDefineDate.setText(sdf.format(calendar.getTime()));
     }
 
     private void updateTimeLabel() {
-        eDefineTime.setText(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
+        eDefineTime.setText(String.format("%02d", calendar.get(Calendar.HOUR_OF_DAY)) + ":" + String.format("%02d" ,calendar.get(Calendar.MINUTE)));
     }
 
 }

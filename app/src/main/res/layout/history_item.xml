@@ -7,7 +7,7 @@
 
 
     <TextView
-        android:id="@+id/pillbox_date"
+        android:id="@+id/history_pillbox_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -20,15 +20,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/history_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/work_sans"
+        android:text="4 minutes"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/history_pillbox_date" />
+
     <GridLayout
-        android:id="@+id/pillbox_medicines"
+        android:id="@+id/history_pillbox_medicines"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
 
         android:columnCount="2"
         android:rowCount="10"
-        app:layout_constraintTop_toTopOf="@id/pillbox_date">
+        app:layout_constraintTop_toTopOf="@id/history_duration">
 
     </GridLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
