@@ -1,5 +1,7 @@
 package io.geven.pillbox.ui.compartment_connection;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import io.geven.pillbox.util.Compartment;
@@ -27,6 +29,9 @@ public class CompartmentConnectionViewModel extends ViewModel implements Firebas
 
     public void setcKey(String cKey) {
         this.cKey.setValue(cKey);
+
+        Log.d("FILLED", cKey);
+
         // this class is only an observer if a cKey is known
         firebaseOneCompartmentAdapter = new FirebaseOneCompartmentAdapter(this.cKey.getValue());
         firebaseOneCompartmentAdapter.attachObserver(this);
@@ -38,6 +43,7 @@ public class CompartmentConnectionViewModel extends ViewModel implements Firebas
             Compartment c = (Compartment) arg;
             // notify the ui if the compartment is changed to filled
             if (c.getState().equals("filled")) {
+                Log.d("FILLED", "HAPPENS");
                 isConnected.setValue(true);
             }
         }

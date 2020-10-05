@@ -21,6 +21,7 @@ public class FirebaseOneCompartmentAdapter extends FirebaseAdapter{
 
         compartmentReference = getBoxReference().child("compartments").child(compartmentKey);
 
+        syncCompartment();
     }
 
     private void syncCompartment() {
