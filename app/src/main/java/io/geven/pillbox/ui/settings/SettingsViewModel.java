@@ -1,19 +1,45 @@
 package io.geven.pillbox.ui.settings;
 
+import java.util.LinkedList;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import io.geven.pillbox.util.FirebaseAdapter;
+import io.geven.pillbox.util.FirebaseItem;
+import io.geven.pillbox.util.FirebaseMedicinesAdapter;
+import io.geven.pillbox.util.FirebaseObserver;
 
-public class SettingsViewModel extends ViewModel {
+public class SettingsViewModel extends ViewModel implements FirebaseObserver {
 
-    private MutableLiveData<String> mText;
+    private FirebaseMedicinesAdapter firebaseMedicinesAdapter;
+
+    private MutableLiveData<LinkedList<FirebaseItem<String>>> mMedicines;
 
     public SettingsViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is settings fragment");
+        firebaseMedicinesAdapter = new FirebaseMedicinesAdapter();
+        firebaseMedicinesAdapter.attachObserver(this);
+
+        mMedicines = new MutableLiveData<>();
     }
 
-    public LiveData<String> getText() {
-        return mText;
+
+    @Override
+    public void firebaseUpdate(FirebaseAdapter adapter, Object arg) {
+        if (adapter instanceof FirebaseMedicinesAdapter) {
+            mMedicines.setValue((LinkedList<FirebaseItem<String>>) arg);
+        }
+    }
+
+    public MutableLiveData<LinkedList<FirebaseItem<String>>> getmMedicines() {
+        return mMedicines;
+    }
+
+    public void removeMedicine(String key) {
+        firebaseMedicinesAdapter.deleteMedicine(key);
+    }
+
+    public void addMedicine(String medicine) {
+        firebaseMedicinesAdapter.addMedicine(medicine);
     }
 }

@@ -25,7 +25,6 @@ public class ConnectActivity extends AppCompatActivity implements FirebaseObserv
     private EditText eBoxID;
     private SharedPreferences sharedPref;
 
-    private String id;
     private String prefID;
 
     @Override
@@ -49,9 +48,7 @@ public class ConnectActivity extends AppCompatActivity implements FirebaseObserv
         // check if the stored id is still correct
         prefID = sharedPref.getString("box_id", ""); // default value will be used if box_id is empty
 
-        if (!prefID.equals("")) {
-            boxAdapter.setBoxID(prefID);
-        }
+        boxAdapter.setBoxID(prefID);
 
     }
 
@@ -81,16 +78,16 @@ public class ConnectActivity extends AppCompatActivity implements FirebaseObserv
             bConnect.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    id = eBoxID.getText().toString();
-                    boxAdapter.setBoxID(id);
+                    prefID = eBoxID.getText().toString();
+                    boxAdapter.setBoxID(prefID);
 
                 }
             });
-            if (!prefID.equals("")) {
+            if (prefID.equals("")) {
                 // if you start the app, but your saved id is not correct, then delete that saved id
                 // also the snackbar won't appear
                 prefID = "";
-                sharedPref.edit().putString("", ((Globals) getApplication()).getInstance().getBoxID()).apply();
+                sharedPref.edit().putString("box_id", "").apply();
             } else {
                 // show a snackbar to notify the user that the id cannot be found
                 Snackbar snackbar = Snackbar.make(getWindow().getDecorView().getRootView(), "ID cannot be found", Snackbar.LENGTH_SHORT);

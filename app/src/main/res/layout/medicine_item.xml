@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layout_medicine_items"
-    android:layout_width="0dp"
-    android:layout_height="match_parent"
-    android:layout_margin="16dp"
-    android:layout_columnWeight="1"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+android:id="@+id/layout_medicine_items"
+android:layout_width="0dp"
+android:layout_height="match_parent"
+android:layout_margin="16dp"
+android:layout_columnWeight="1"
+xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/fab_medicine_item"
-        android:backgroundTint="#888888"
-        android:text="Vitamin B"
-        android:theme="@style/Theme.MaterialComponents.NoActionBar"
-        app:icon="@drawable/ic_pill" />
+<com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fab_medicine_item"
+    android:backgroundTint="#888888"
+    android:text="Vitamin B"
+    android:theme="@style/Theme.MaterialComponents.NoActionBar"
+    android:autoSizeTextType="uniform"
+    app:icon="@drawable/ic_pill" />
 
 </LinearLayout>

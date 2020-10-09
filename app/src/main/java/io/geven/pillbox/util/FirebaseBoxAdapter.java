@@ -23,6 +23,8 @@ public class FirebaseBoxAdapter extends FirebaseAdapter {
                 if (snapshot.exists()) {
                     // id exist
                     Globals.getInstance().setBoxID(id);
+                    String key = snapshot.getChildren().iterator().next().getRef().getKey();
+                    Globals.getInstance().setBoxKey(key);
                     notifyObservers(FirebaseBoxAdapter.this, true);
 
                 } else {

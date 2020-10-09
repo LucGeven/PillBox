@@ -1,19 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/text_notifications"
+        android:id="@+id/text_manage_medicines"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_margin="16dp"
+        android:fontFamily="@font/work_sans"
+        android:text="Manage Medicines:"
+        android:textColor="@color/black"
+        android:textSize="24sp"/>
+
+    <GridLayout
+        android:id="@+id/settings_medicines_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_manage_medicines"
+        android:columnCount="2"
+        android:rowCount="10">
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/fab_settings_add_medicine"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_columnWeight="1"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/colorAccent"
+            android:text="ADD"
+            android:autoSizeTextType="uniform"
+            android:theme="@style/Theme.MaterialComponents.NoActionBar"
+            app:icon="@drawable/ic_add" />
+
+
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/text_add_song"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/settings_medicines_list"
+        android:layout_margin="16dp"
+        android:fontFamily="@font/work_sans"
+        android:text="Upload song:"
+        android:textColor="@color/black"
+        android:textSize="24sp"/>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/button_choose_song"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_add_song"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/colorAccent"
+        android:text="Choose Song"
+        android:autoSizeTextType="uniform"
+        android:theme="@style/Theme.MaterialComponents.NoActionBar"
+        app:icon="@drawable/ic_music" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="64dp"
+        android:backgroundTint="@color/colorAccent"
+        android:src="@drawable/ic_logout" />
+
+
+</RelativeLayout>

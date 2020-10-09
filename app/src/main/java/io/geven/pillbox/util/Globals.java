@@ -5,6 +5,7 @@ import android.app.Application;
 public class Globals extends Application {
 
     private String boxID = "";
+    private String boxKey = "";
     private static Globals globals;
 
     /**
@@ -41,4 +42,13 @@ public class Globals extends Application {
         return this.boxID;
     }
 
+    public Globals setBoxKey(String boxKey) {
+        this.boxKey = boxKey;
+
+        return this;
+    }
+
+    public String getBoxKey() {
+        return boxKey;
+    }
 }

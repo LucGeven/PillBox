@@ -1,10 +1,17 @@
 package io.geven.pillbox.util;
 
+import android.util.Log;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 public abstract class FirebaseAdapter {
 
@@ -19,14 +26,6 @@ public abstract class FirebaseAdapter {
      */
     public FirebaseAdapter() {
 
-        // if a box ID is known, then store the database reference that stores the data of the box in boxReference
-        if (Globals.getInstance().getBoxID() != null) {
-            boxReference = FirebaseDatabase.getInstance()
-                    .getReference()
-                    .child("boxes")
-                    .child(Globals.getInstance().getBoxID());
-        }
-
         observers = new ArrayList<>();
     }
 
@@ -35,6 +34,7 @@ public abstract class FirebaseAdapter {
      * @return the box reference
      */
     protected DatabaseReference getBoxReference() {
+        updateBoxReference();
         return boxReference;
     }
 
@@ -62,6 +62,16 @@ public abstract class FirebaseAdapter {
     public void notifyObservers(FirebaseAdapter adapter, Object arg) {
         for (FirebaseObserver observer : observers) {
             observer.firebaseUpdate(adapter, arg);
+        }
+    }
+
+    public void updateBoxReference() {
+        // if a box ID is known, then store the database reference that stores the data of the box in boxReference
+        if (Globals.getInstance().getBoxID() != null && Globals.getInstance().getBoxKey() != null) {
+            boxReference = FirebaseDatabase.getInstance()
+                    .getReference()
+                    .child("boxes")
+                    .child(Globals.getInstance().getBoxKey());
         }
     }
 
