@@ -47,7 +47,7 @@ public class PillboxFragment extends Fragment {
 
                 // if no compartment is available, then show a snackbar
                 if (!pillboxViewModel.compartmentIsAvailable()) {
-                    Snackbar snackbar = Snackbar.make(getView().getRootView(), "No compartment is available", Snackbar.LENGTH_SHORT);
+                    Snackbar snackbar = Snackbar.make(getView().getRootView(), "Refill is not allowed", Snackbar.LENGTH_SHORT);
                     snackbar.getView().setBackgroundColor(Color.parseColor("#D81B60"));
                     snackbar.setTextColor(Color.BLACK);
                     snackbar.show();
@@ -87,6 +87,9 @@ public class PillboxFragment extends Fragment {
                         g.addView(medicineDesign);
                     }
 
+
+                    TextView compartmentID = (TextView) pillboxItem.findViewById(R.id.compartment_id);
+                    compartmentID.setText(compartment.getId());
 
                     scrollLayout.addView(pillboxItem);
                 }

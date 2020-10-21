@@ -38,6 +38,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -55,6 +56,8 @@ public class AddMedicineFragment extends Fragment {
 
     private HashMap<String, String> selectedMedicines;
 
+    private DatePickerDialog datePickerDialog;
+
     public static AddMedicineFragment newInstance() {
         return new AddMedicineFragment();
     }
@@ -67,6 +70,23 @@ public class AddMedicineFragment extends Fragment {
                 ViewModelProviders.of(this).get(AddMedicineViewModel.class);
         View root = inflater.inflate(R.layout.add_medicine_fragment, container, false);
 
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateDateLabel();
+            }
+        };
+
+        datePickerDialog = new DatePickerDialog(getContext(), date, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        addMedicineViewModel.getLastDate().observe(this, new Observer<Date>() {
+            @Override
+            public void onChanged(Date date) {
+                datePickerDialog.getDatePicker().setMinDate(date.getTime());
+            }
+        });
 
         FloatingActionButton fabRemove = root.findViewById(R.id.fab_delete_medicine);
         FloatingActionButton fabSave = root.findViewById(R.id.fab_push_medicine);
@@ -136,20 +156,13 @@ public class AddMedicineFragment extends Fragment {
             }
         });
 
-        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                calendar.set(Calendar.YEAR, year);
-                calendar.set(Calendar.MONTH, month);
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateDateLabel();
-            }
-        };
-
         eDefineDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(v.getContext(), date, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+                //d.getDatePicker().setMinDate(addMedicineViewModel.getMinDate().getTime());
+                datePickerDialog.show();
+
+                //new DatePickerDialog(v.getContext(), date, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 

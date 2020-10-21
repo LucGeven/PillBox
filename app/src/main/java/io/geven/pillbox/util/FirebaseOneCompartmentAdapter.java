@@ -30,6 +30,7 @@ public class FirebaseOneCompartmentAdapter extends FirebaseAdapter{
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String state = snapshot.child("state").getValue(String.class);
                 String date = snapshot.child("date").getValue(String.class);
+                String id = snapshot.child("id").getValue(String.class);
 
                 List<String> medicines = new LinkedList<>();
 
@@ -37,7 +38,7 @@ public class FirebaseOneCompartmentAdapter extends FirebaseAdapter{
                     medicines.add(medicine.getValue(String.class));
                 }
 
-                compartment = new Compartment(date, state, medicines);
+                compartment = new Compartment(id, date, state, medicines);
 
                 notifyObservers(FirebaseOneCompartmentAdapter.this, compartment);
 

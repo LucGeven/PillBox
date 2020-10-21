@@ -65,7 +65,8 @@ public class PillboxViewModel extends ViewModel implements FirebaseObserver {
     }
 
     public boolean compartmentIsAvailable() {
-        return firebaseCompartmentsAdapter.compartmentIsAvailable();
+        return firebaseCompartmentsAdapter.addCompartmentAllowed();
+        //return firebaseCompartmentsAdapter.compartmentIsAvailable();
     }
 
     public MutableLiveData<ArrayList<Compartment>> getCompartments() {

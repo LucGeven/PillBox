@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "117245984007-ao7ibo766tpb9m4nndri3v04mnsid8sm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.geven.pillbox",
+            "certificate_hash": "8ff3ca912e14294996fa8d139fadbf1f16583e32"
+          }
+        },
+        {
           "client_id": "117245984007-79up3ju2jb7j4msq1osk69pnbe37jjjf.apps.googleusercontent.com",
           "client_type": 3
         }
